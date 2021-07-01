@@ -52,7 +52,7 @@
 	</c:if>
 	
 	<div>
-		<textarea rows="5" cols="70"></textarea><br>
+		<textarea rows="5" cols="70" id="commentContent"></textarea><br>
 		
 		<c:if test="${id == null }">
 			<input type="button" value="comment 쓰기" disabled="disabled">
@@ -60,16 +60,54 @@
 		<c:if test="${id != null }">
 			<input type="button" value="comment 쓰기" id="commentWrite">
 		</c:if>
-		<input type="button" value="comment 읽기()" onclick="getComment(1, event)" id="commentRead"></td>
+		<input type="button" value="comment 읽기()" onclick="getComment(1, event)" id="commentRead">
 	</div>
 	
 	<script type="text/javascript">
 		/* # : id, . : class,  : tag */
 		$(document).ready(function(){
 			$("#commentWrite").on("click", function(){
-				alert('버튼이 동작합니다.');
+				$.ajax({
+					type: "POST",
+					async : true,
+					dataType : "json",
+					url:"/bbs/commentWrite.comment",
+					//data{}에서는 EL을 ""로 감싸야한다 그 외에는 그냥 사용하면 됨
+					data:{
+						commentContent: $("#commentContent").val(),
+						articleNum:"${article.articleNum}"
+					},
+					beforeSend : function(){
+						alert("시작전");
+					},
+					complete : function(){
+						alert("완료후");
+					},
+					error : function(xhr){
+						alert("error html = " + xhr.statusText);
+					},		
+					success : function(data){
+						let html="<table border='1' width='500' align='center'>";
+						$.each(data, function(index, item){
+							html +="<tr>";
+							html +="<td>"+(index+1)+"</td>";
+							html +="<td>"+item.id+"</td>";
+							html +="<td>"+item.commentContent+"</td>"
+							html +="<td>"+item.commentDate+"</td>";
+							html +="</tr>";
+							
+						});
+						
+						html+="</table>";
+						
+						$("#showComment").html(html);
+						$("#commentContent").val("");
+						$("#commentContent").focus();
+					}
+				})
 			})		
 		})
 	</script>
+	<div id="showComment"></div>
 </body>
 </html>

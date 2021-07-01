@@ -2,9 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cloud.bbs.dao1.CommentDao">
-	<select id="test" parameterType="String" resultType="String">
-		SELECT PASS
-			FROM LOGIN
-			WHERE ID = #{id}
+	<select id="getComments" parameterType="Integer" resultType="comment">
+		SELECT COMMENTNUM, ID, COMMENTCONTENT, COMMENTDATE
+		FROM COMMENTS
+		WHERE ARTICLENUM=#{articleNum}			
 	</select>
+	
+	<insert id="write" parameterType="comment">
+		INSERT INTO COMMENTS VALUES(
+			comment_seq.nextVal,
+			#{id},
+			#{commentContent},
+			sysdate,
+			#{articleNum}
+		)
+	</insert>
 </mapper>

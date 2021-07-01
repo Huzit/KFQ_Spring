@@ -19,6 +19,7 @@
 	 <!-- mapper에 정의 -->
 	<typeAliases>
 		<typeAlias alias="article" type="com.cloud.bbs.dto.BBSDto"/>
+		<typeAlias alias="comment" type="com.cloud.bbs.dto.CommentDto"/>
 		<typeAlias alias="file" type="com.cloud.bbs.dto.FileDto"/>
 	</typeAliases>
 	 

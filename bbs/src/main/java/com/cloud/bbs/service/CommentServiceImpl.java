@@ -1,9 +1,15 @@
 package com.cloud.bbs.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cloud.bbs.dao1.CommentDao;
+import com.cloud.bbs.dto.CommentDto;
 
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -17,8 +23,9 @@ public class CommentServiceImpl implements CommentService{
 	 * 이렇게 하면 DaoImpl없이 mapper와 연결이 가능하다
 	 * 원래는 impl에서 sqlSession(nameSpace+ ".name", argument)로 넘겨줬지만 그럴 필요가 사라졌다.
 	 */
-	@Override			
-	public void commentService() {
-		System.out.println(commentDao.test("ps"));
-	}
+	@Override
+	public List<CommentDto> write(CommentDto comment) {
+		commentDao.write(comment);
+		return commentDao.getComments(comment.getArticleNum());
+	}	
 }
