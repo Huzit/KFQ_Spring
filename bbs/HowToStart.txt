@@ -1,0 +1,12 @@
+IDE : STS 3.9.16
+JDK : 11
+WAS : 톰캣9
+DB : ORACLE 11(password : 1q2w3e4r)
+MIDDLE WARE : SQL Developer 
+
+alter user hr account unlock;
+
+
+STS ver.3.9.16 버전 설치 및 톰캣 9 installer가 아닌 zip파일 설치 → 
+default서버 삭제 → encoding UTF-8로 변경 → 
+webDeveloperTool install → 톰캣 서버 추가(X가 뜨는 이유는 버전이 안맞아서 )

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cloud.bbs.dao.BBSDao">
+	<select id = "list" resultType="article">
+		SELECT *
+			FROM BBS
+			ORDER BY articleNum DESC
+	</select>
+	
+	<select id="login" parameterType="String" resultType="String">
+		SELECT PASS
+			FROM LOGIN
+			WHERE ID=#{id}
+	</select>
+	
+	<!-- generatedKeys는 키를 자동으로 주라는 의미, keyColumn은 BBS에서 articleNum을 가지고 오라는 의미, keyProperty는 리턴될 값을 설정한다(articleNum)-->
+	<!-- keyColumn = [PK 컬럼명], keyProperty = [매핑할 변수명] -->
+	<insert id="write" parameterType="article" 	useGeneratedKeys="true" keyColumn="articleNum" keyProperty="articleNum">
+		
+		INSERT INTO BBS VALUES(bbs_seq.nextval ,#{id}, #{title}, #{content}, sysdate)
+	</insert>
+	
+	<select id="content" parameterType="String" resultType="article">
+		SELECT *
+			FROM BBS
+			WHERE ARTICLENUM=#{articleNum}
+	</select>
+	
+	<select id="getFiles" parameterType="String" resultType="file">
+		SELECT ORIGINALFILENAME, SAVEDFILENAME
+			FROM FILELIST
+			WHERE ARTICLENUM=#{articleNum}
+	</select>
+	
+	<select id="getOriginalFileName" parameterType="String" resultType="String">
+		SELECT ORIGINALFILENAME
+			FROM FILELIST
+			WHERE SAVEDFILENAME=#{savedFileName}
+	</select>
+	
+	<select id="updateForm" parameterType="String" resultType="article">
+		SELECT articleNum, title, content
+			FROM BBS
+			WHERE  ARTICLENUM=#{articleNum}
+	</select>
+	
+	<update id="update" parameterType="article">
+		UPDATE BBS 
+		SET title=#{title}, content=#{content}
+		WHERE articleNum=#{articleNum}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE 
+		FROM BBS
+		WHERE articleNum=#{articleNum}
+	</delete>
+	
+	<insert id="insertFile" parameterType="file">
+		INSERT INTO FILELIST
+			VALUES (
+				file_seq.nextval, 
+				#{originalFileName}, 
+				#{savedFileName}, 
+				#{articleNum}
+			)
+	</insert>
+</mapper>

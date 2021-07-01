@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 앱 서블릿에서 설정을 하게되면 다른 서블릿이 생겼을 때 또 DB를 연결해줘야 되므로 루트에서 설정해준다. -->
+	<bean id = "dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+		<property name="url" value="jdbc:oracle:thin:@Localhost"/>
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="username" value="PS"/>
+		<property name="password" value="1q2w3e4r"/>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" 
+		p:dataSource-ref="dataSource"	
+		p:configLocation="classpath:/mybatisConfig/mybatisConfig.xml" 
+		p:mapperLocations="classpath:/com/cloud/mapper/**/*.xml"/>
+		
+	<!-- 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" 
+		<property name= "dataSource" ref="dataSource"/> 	
+		<property name= "configLocation" classpath="classpath:/mybatisConfig/mybatisConfig.xml"/> 	
+		<property name= "mapperLocations" classpath="classPath:/com/ict/human/mapper/**/*.xml"/> 	
+	</bean>		
+	 -->	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- 저장될 파일 경로 -->
+	<bean id="saveDir" class="java.lang.String">
+		<constructor-arg value="d:/work/upLoad/"/>
+	</bean>
+	
+	<mybatis-spring:scan base-package="com.cloud.bbs.dao1"/>		
+</beans>

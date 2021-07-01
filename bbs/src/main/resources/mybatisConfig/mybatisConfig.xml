@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="lazyLoadingEnabled" value="false"/>
+		<setting name="multipleResultSetsEnabled" value="true"/>
+		<setting name="useColumnLabel" value="true"/>
+		<setting name="useGeneratedKeys" value="false"/>
+		<setting name="defaultExecutorType" value="SIMPLE"/>
+		<setting name="defaultStatementTimeout" value="25000"/>
+		<!-- 스네이크 케이스를 카멜케이스로 자동 매필되도록 함 -->
+		<setting name="mapUnderscoreToCamelCase" value="false"/>
+		<setting name="jdbcTypeForNull" value="VARCHAR"/>
+	</settings>
+	 
+	 <!-- mapper에 정의 -->
+	<typeAliases>
+		<typeAlias alias="article" type="com.cloud.bbs.dto.BBSDto"/>
+		<typeAlias alias="file" type="com.cloud.bbs.dto.FileDto"/>
+	</typeAliases>
+	 
+</configuration>
