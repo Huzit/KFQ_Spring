@@ -30,4 +30,11 @@ public class CommentController {
 		comment.setId(session.getAttribute("id").toString());
 		return commentService.write(comment);
 	}
+	
+	@PostMapping("/commentRead.comment") 
+	@ResponseBody
+	public List<CommentDto> commentRead(@RequestParam("articleNum") int articleNum, @RequestParam("commentRow") int commentRow) {
+		//세션id를 받아서 넣어줌
+		return commentService.read(articleNum, commentRow);
+	}
 }

@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cloud.bbs.dao1.CommentDao">
-	<select id="getComments" parameterType="Integer" resultType="comment">
-		SELECT COMMENTNUM, ID, COMMENTCONTENT, COMMENTDATE
-		FROM COMMENTS
-		WHERE ARTICLENUM=#{articleNum}			
-	</select>
 	
 	<insert id="write" parameterType="comment">
 		INSERT INTO COMMENTS VALUES(
@@ -17,4 +12,10 @@
 			#{articleNum}
 		)
 	</insert>
+	<select id="getComments" parameterType="HashMap" resultType="comment">
+		SELECT COMMENTNUM, ID, COMMENTCONTENT, COMMENTDATE
+			FROM COMMENTS
+			WHERE ARTICLENUM=#{articleNum} and rownum BETWEEN 1 and #{commentRow} 
+			ORDER BY commentNum DESC
+	</select>
 </mapper>

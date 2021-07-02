@@ -10,6 +10,7 @@ public interface BBSDao {
 	public void write(BBSDto article);
 	public String login(String id);
 	public BBSDto content(String articleNum);
+	public int getCommentCount(String articleNum);
 	public List<FileDto> getFiles(String articleNum);
 	public BBSDto updateForm(String articleNum);
 	public void update(BBSDto article);

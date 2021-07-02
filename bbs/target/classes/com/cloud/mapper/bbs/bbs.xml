@@ -24,7 +24,13 @@
 	<select id="content" parameterType="String" resultType="article">
 		SELECT *
 			FROM BBS
-			WHERE ARTICLENUM=#{articleNum}
+			WHERE articleNum=#{articleNum}
+	</select>
+	
+	<select id="getCommentCount" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) 
+			FROM COMMENTS 
+			WHERE articleNum=#{articleNum} 
 	</select>
 	
 	<select id="getFiles" parameterType="String" resultType="file">

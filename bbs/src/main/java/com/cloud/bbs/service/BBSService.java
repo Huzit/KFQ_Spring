@@ -21,9 +21,11 @@ public interface BBSService  {
 	public void write(BBSDto article, @RequestPart("fileUpload") List<MultipartFile> fileUpload);
 	public String login(String id, String pass, HttpSession session);
 	public BBSDto content(String articleNum);
+	public int getCommentCount(String articleNum);
 	public List<FileDto> getFiles(String articleNum);
 	public BBSDto updateForm(String articleNum);
 	public void update(BBSDto article);
 	public void delete(String articleNum);
 	public FileSystemResource download(String savedFileName, HttpServletResponse response);
+	
 }

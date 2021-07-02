@@ -39,6 +39,11 @@ public class BBSDaoImpl implements BBSDao {
 	}
 	
 	@Override
+	public int getCommentCount(String articleNum) {
+		return sqlSession.selectOne(nameSpace+".getCommentCount", articleNum);
+	}
+	
+	@Override
 	public List<FileDto> getFiles(String articleNum) {
 		return sqlSession.selectList(nameSpace+".getFiles", articleNum);
 	}

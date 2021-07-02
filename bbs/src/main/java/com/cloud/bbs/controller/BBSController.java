@@ -37,11 +37,7 @@ public class BBSController {
 	
 	//get방식으로 로그인데이터가 없으면 login.jsp로 이동
 	@GetMapping("/write.bbs")
-	public String writeForm(HttpSession session) {
-		
-		if(session.getAttribute("id")==null) {
-			return "login";
-		}	
+	public String writeForm() {
 		return "writeForm";
 	}
 	
@@ -56,6 +52,10 @@ public class BBSController {
 		return "redirect:/list.bbs";
 	}
 	
+	@GetMapping("/login.bbs")
+	public String login() {
+		return "login";
+	}
 	//login.jsp에 requestParam을 통해 입력된 값을 받아서 로그인
 	@PostMapping("/login.bbs")
 	public String login(@RequestParam("id") String id, @RequestParam("pass") String pass, HttpSession session) { 
@@ -68,6 +68,7 @@ public class BBSController {
 		model.addAttribute("article", bbsService.content(articleNum));
 		//업로드한 파일을 콘텐츠에 표시
 		model.addAttribute("fileList", bbsService.getFiles(articleNum));
+		model.addAttribute("commentCount", bbsService.getCommentCount(articleNum));
 	}
 	
 	//업데이트 서식 작성

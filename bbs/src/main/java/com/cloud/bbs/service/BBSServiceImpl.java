@@ -77,7 +77,12 @@ public class BBSServiceImpl implements BBSService {
 	@Override
 	public BBSDto content(String articleNum) {
 		return bbsDao.content(articleNum);
+	}
 	
+	@Override
+	public int getCommentCount(String articleNum) {
+		// TODO Auto-generated method stub
+		return bbsDao.getCommentCount(articleNum);
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package com.cloud.bbs.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,22 @@ public class CommentServiceImpl implements CommentService{
 	 */
 	@Override
 	public List<CommentDto> write(CommentDto comment) {
+		
 		commentDao.write(comment);
-		return commentDao.getComments(comment.getArticleNum());
+		
+		HashMap<String, Integer> readMap = new HashMap<>();
+		readMap.put("articleNum", comment.getArticleNum());
+		readMap.put("commentRow", 10);
+		
+		return commentDao.getComments(readMap);
 	}	
+	
+	@Override
+	public List<CommentDto> read(int articleNum, int commentRow) {
+		HashMap<String, Integer> readMap = new HashMap<>();
+		readMap.put("articleNum", articleNum);
+		readMap.put("commentRow", commentRow);
+		
+		return commentDao.getComments(readMap);
+	}
 }
