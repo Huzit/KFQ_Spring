@@ -37,7 +37,7 @@ public class BBSController {
 	
 	//get방식으로 로그인데이터가 없으면 login.jsp로 이동
 	@GetMapping("/write.bbs")
-	public String writeForm() {
+	public String writeForm(HttpSession session) {
 		return "writeForm";
 	}
 	

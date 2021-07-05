@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.URLEditor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,7 @@ public class BBSServiceImpl implements BBSService {
 		return bbsDao.list();
 	}
 	
+	@Transactional() //쿼리문 두 개중 하나가 잘못되었을 때 남은 하나를 자동으로 rollback시켜줌
 	@Override
 	public void write(BBSDto article, @RequestPart("fileUpload") List<MultipartFile> fileUpload) {
 		bbsDao.write(article);

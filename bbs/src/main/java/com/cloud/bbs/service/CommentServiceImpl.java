@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService{
 		
 		commentDao.write(comment);
 		
-		HashMap<String, Integer> readMap = new HashMap<>();
+		HashMap<String, Integer> readMap = new HashMap<String, Integer>();
 		readMap.put("articleNum", comment.getArticleNum());
 		readMap.put("commentRow", 10);
 		
@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Override
 	public List<CommentDto> read(int articleNum, int commentRow) {
-		HashMap<String, Integer> readMap = new HashMap<>();
+		HashMap<String, Integer> readMap = new HashMap<String, Integer>();
 		readMap.put("articleNum", articleNum);
 		readMap.put("commentRow", commentRow);
 		
